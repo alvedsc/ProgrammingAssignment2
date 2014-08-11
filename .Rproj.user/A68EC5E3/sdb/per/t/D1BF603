@@ -1,12 +1,12 @@
 {
-    "contents" : "## Put comments here that give an overall description of what your\n## functions do\n\n## Write a short comment describing this function\n\nmakeCacheMatrix <- function(x = matrix()) {\n      m <- NULL\n      get <- function() x\n      setinv <- function(inv) m<<-inv\n      getinv<- function() m\n      list(get=get,setinv=setinv,getinv=getinv)\n}\n\n\n## Write a short comment describing this function\n\ncacheSolve <- function(x, ...) {\n        ## Return a matrix that is the inverse of 'x'\n      m <- x$getinv()\n      if (!is.null(m)) return(m)\n      inv <- solve(x$get())\n      x$setinv(inv)\n      inv\n}\n",
+    "contents" : "## First, a list is created from a matrix through makeCacheMatrix with the \n## functions needed for cacheSolve. This is done so that any of this functions\n## can be used as part of this list whenever cacheSolve needs to get or set a \n## value from or to the cache. \n\n\n## m is created as NULL so that when it is called using getinv() it returns \n## FALSE through !is.na() as long as setinv() is not called. Get just returns \n## the value of the matrix that was previously entered on makeCacheMatrix. \n## setinv asings the new value to m, which is supposed to be the inverse.\n## getinv returns the value of the cached inverse. at the end this function \n## returns a list of functions so that they can be called from cacheSolve.\n\nmakeCacheMatrix <- function(x = matrix()) {\n      m <- NULL\n      get <- function() x\n      setinv <- function(inv) m<<-inv\n      getinv<- function() m\n      list(get=get,setinv=setinv,getinv=getinv)\n}\n\n\n## This function tests the list created from makeCacheMatrix to check if the \n## inverse had been calculated before (it will be NULL as long as setinv() is \n## not called) . If there is a cached value then it just returns the value. If \n## not, it calculates it and returns the value through setinv() which\n## automatically caches it.\n\ncacheSolve <- function(x, ...) {\n        ## Return a matrix that is the inverse of 'x'\n      m <- x$getinv()\n      if (!is.null(m)) print(\"Cached value\");return(m)\n      inv <- solve(x$get())\n      x$setinv(inv)\n      inv\n}\n",
     "created" : 1407719270156.000,
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "146699296",
+    "hash" : "2542127679",
     "id" : "D1BF603",
-    "lastKnownWriteTime" : 1407725767,
+    "lastKnownWriteTime" : 1407728940,
     "path" : "~/GitHub/ProgrammingAssignment2/cachematrix.R",
     "project_path" : "cachematrix.R",
     "properties" : {
